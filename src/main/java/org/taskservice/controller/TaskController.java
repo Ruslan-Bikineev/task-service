@@ -1,5 +1,6 @@
 package org.taskservice.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,13 +34,15 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task save(@RequestBody Task task) {
+    public Task save(@Valid
+                     @RequestBody Task task) {
         return taskService.save(task);
     }
 
     @PutMapping("/id")
     public Task put(@PathVariable("id") Long id,
-                    @RequestBody Task task) {
+                    @Valid @RequestBody Task task) {
+        task.setId(id);
         return taskService.put(task);
     }
 
