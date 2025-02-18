@@ -1,7 +1,7 @@
 services:
-  shop-db:
+  db:
     image: postgres:16.1-alpine
-    container_name: shop-postgres-db
+    container_name: postgres-db
     restart: on-failure
     env_file:
       - .env
@@ -14,6 +14,6 @@ services:
       retries: 5
       start_period: 10s
     volumes:
-      - shop-postgres-db-data:/var/lib/postgresql/data
+      - postgres-db-data:/var/lib/postgresql/data
 volumes:
-  shop-postgres-db-data:
+  postgres-db-data:
