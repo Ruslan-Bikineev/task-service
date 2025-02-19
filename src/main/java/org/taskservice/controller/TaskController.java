@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.taskservice.dto.TaskDto;
 import org.taskservice.entity.Task;
+import org.taskservice.mapper.TaskMapper;
 import org.taskservice.service.TaskService;
 
 import java.util.List;
@@ -19,9 +21,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
+    private TaskMapper taskMapper;
     private TaskService taskService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskMapper taskMapper,
+                          TaskService taskService) {
+        this.taskMapper = taskMapper;
         this.taskService = taskService;
     }
 
@@ -31,22 +36,27 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public Task getById(@PathVariable("id") Long id) {
-        return taskService.getById(id);
+    public TaskDto getById(@PathVariable("id") Long id) {
+        Task task = taskService.getById(id);
+        return taskMapper.toDto(task);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Task save(@Valid
-                     @RequestBody Task task) {
-        return taskService.save(task);
+    public TaskDto save(@Valid
+                        @RequestBody TaskDto taskDto) {
+        Task task = taskMapper.toEntity(taskDto);
+        task = taskService.save(task);
+        return taskMapper.toDto(task);
     }
 
     @PutMapping("/{id}")
-    public Task put(@PathVariable("id") Long id,
-                    @Valid @RequestBody Task task) {
-        task.setId(id);
-        return taskService.put(task);
+    public TaskDto put(@PathVariable("id") Long id,
+                       @Valid @RequestBody TaskDto taskDto) {
+        taskDto.setId(id);
+        Task task = taskMapper.toEntity(taskDto);
+        task = taskService.put(task);
+        return taskMapper.toDto(task);
     }
 
     @DeleteMapping("/{id}")
