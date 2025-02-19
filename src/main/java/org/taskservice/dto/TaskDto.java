@@ -16,11 +16,11 @@ public class TaskDto {
     private Long id;
 
     @NotBlank(message = "title: cannot be empty")
-    @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
+    @Size(min = 1, max = 255, message = "title: must be between 1 and 255 characters")
     private String title;
 
     @NotBlank(message = "description: cannot be empty")
-    @Size(min = 1, max = 255, message = "Name must be between 1 and 255 characters")
+    @Size(min = 1, max = 255, message = "description: must be between 1 and 255 characters")
     private String description;
 
     @JsonProperty("user_id")
