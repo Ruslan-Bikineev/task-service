@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.taskservice.exceptions.AroundAspectException;
 
 @Aspect
 @Component
@@ -50,8 +51,9 @@ public class LoggingAspect {
         long start = System.currentTimeMillis();
         try {
             proceeded = joinPoint.proceed();
-        } catch (Throwable throwable) {
-            throw new RuntimeException(throwable);
+        } catch (Throwable e) {
+            throw new AroundAspectException("Exception when proceed method %s.%s()"
+                    .formatted(typeName, methodName));
         }
         logger.info("LOG TIME ELAPSED OF METHOD: {}.{}() - {} ms",
                 typeName, methodName, (System.currentTimeMillis() - start));
