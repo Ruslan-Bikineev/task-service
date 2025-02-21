@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.taskservice.aspect.annotation.ControllerLogging;
 import org.taskservice.dto.TaskDto;
 import org.taskservice.entity.Task;
 import org.taskservice.mapper.TaskMapper;
@@ -18,6 +19,7 @@ import org.taskservice.service.TaskService;
 
 import java.util.List;
 
+@ControllerLogging
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
