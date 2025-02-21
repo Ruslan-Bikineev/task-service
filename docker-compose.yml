@@ -15,5 +15,22 @@ services:
       start_period: 10s
     volumes:
       - postgres-db-data:/var/lib/postgresql/data
+  backend:
+    build: ./
+    container_name: backend
+    hostname: backend
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      SERVER_PORT: 8080
+      LOG_LEVEL: info
+      SPRING_PROFILES_ACTIVE: test
+    depends_on:
+      db:
+        condition: service_healthy
 volumes:
   postgres-db-data:

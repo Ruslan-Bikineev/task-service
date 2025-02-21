@@ -15,7 +15,7 @@
             </pattern>
         </encoder>
     </appender>
-    <logger name="org.taskservice.aspect.LoggingAspect" level="info" additivity="false">
+    <logger name="org.taskservice.aspect.LoggingAspect" level="info">
         <appender-ref ref="FILE"/>
     </logger>
     <root level="info">
