@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.taskservice.dto.TaskDto;
 import org.taskservice.exceptions.AroundAspectException;
 
 @Aspect
@@ -25,12 +26,12 @@ public class LoggingAspect {
         logger.info("LOG BEFORE METHOD: {}.{}() {}", typeName, methodName, args);
     }
 
-    @AfterReturning("within(@org.taskservice.aspect.annotation.ControllerLogging *)")
-    public void afterReturning(JoinPoint joinPoint) {
-        Object[] args = joinPoint.getArgs();
+    @AfterReturning(value = "within(@org.taskservice.aspect.annotation.ControllerLogging *)",
+            returning = "result")
+    public void afterReturning(JoinPoint joinPoint, TaskDto result) {
         String typeName = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
-        logger.info("LOG AFTER METHOD: {}.{}() {}", typeName, methodName, args);
+        logger.info("LOG AFTER METHOD: {}.{}() {}", typeName, methodName, result);
     }
 
     @AfterThrowing(pointcut = "within(@org.taskservice.aspect.annotation.ControllerLogging *)",
