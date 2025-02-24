@@ -1,0 +1,43 @@
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile: default
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5435/TaskDB
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: info
+---
+server:
+  port: ${SERVER_PORT}
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}:${POSTGRESQL_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    root: ${LOG_LEVEL}
