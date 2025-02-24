@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorInfoDto handleMethodArgumentNotValidException(HttpServletRequest req,

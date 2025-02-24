@@ -52,12 +52,12 @@ public class LoggingAspect {
         long start = System.currentTimeMillis();
         try {
             proceeded = joinPoint.proceed();
+            logger.info("LOG TIME ELAPSED OF METHOD: {}.{}() - {} ms",
+                    typeName, methodName, (System.currentTimeMillis() - start));
         } catch (Throwable e) {
             throw new AroundAspectException("Exception when proceed method %s.%s()"
                     .formatted(typeName, methodName));
         }
-        logger.info("LOG TIME ELAPSED OF METHOD: {}.{}() - {} ms",
-                typeName, methodName, (System.currentTimeMillis() - start));
         return proceeded;
     }
 }
