@@ -23,6 +23,10 @@ public class TaskDto {
     @Size(min = 1, max = 255, message = "description: must be between 1 and 255 characters")
     private String description;
 
+    @NotBlank(message = "status: cannot be empty")
+    @Size(min = 1, max = 255, message = "description: must be between 1 and 255 characters")
+    private String status;
+
     @JsonProperty("user_id")
     @Positive(message = "user_id: must be positive")
     private Long userId;
