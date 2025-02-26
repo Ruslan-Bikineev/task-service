@@ -1,6 +1,7 @@
 package org.taskservice.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.taskservice.entity.Task;
 import org.taskservice.kafka.KafkaTaskProducer;
@@ -10,18 +11,11 @@ import org.taskservice.repository.TaskRepository;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TaskService {
-    private TaskMapper taskMapper;
-    private TaskRepository taskRepository;
-    private KafkaTaskProducer kafkaTaskProducer;
-
-    public TaskService(TaskMapper taskMapper,
-                       TaskRepository taskRepository,
-                       KafkaTaskProducer kafkaTaskProducer) {
-        this.taskMapper = taskMapper;
-        this.taskRepository = taskRepository;
-        this.kafkaTaskProducer = kafkaTaskProducer;
-    }
+    private final TaskMapper taskMapper;
+    private final TaskRepository taskRepository;
+    private final KafkaTaskProducer kafkaTaskProducer;
 
     public Task getById(Long id) {
         return taskRepository.findById(id)

@@ -1,5 +1,6 @@
 package org.taskservice.kafka;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,15 +16,12 @@ import java.util.List;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class KafkaTaskConsumer {
     @Value("#{'${mail.to}'.split(',')}")
     private List<String> to;
 
-    private NotificationService notificationService;
-
-    public KafkaTaskConsumer(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
+    private final NotificationService notificationService;
 
     @KafkaListener(id = "${kafka.consumer.group-id}",
             topics = "${kafka.topic.task-name}",

@@ -1,17 +1,15 @@
 package org.taskservice.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 import org.taskservice.dto.TaskDto;
 import org.taskservice.entity.Task;
 
 @Component
+@RequiredArgsConstructor
 public class TaskMapper {
-    private ModelMapper modelMapper;
-
-    public TaskMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
+    private final ModelMapper modelMapper;
 
     public Task toEntity(TaskDto taskDto) {
         Task task = modelMapper.map(taskDto, Task.class);

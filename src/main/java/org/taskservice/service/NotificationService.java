@@ -1,5 +1,6 @@
 package org.taskservice.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,12 +12,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class NotificationService {
-    private JavaMailSender javaMailSender;
-
-    public NotificationService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
+    private final JavaMailSender javaMailSender;
 
     public void sendEmail(List<String> to, String subject, List<TaskDto> taskList) {
         log.info("Sending email to {}", to);
