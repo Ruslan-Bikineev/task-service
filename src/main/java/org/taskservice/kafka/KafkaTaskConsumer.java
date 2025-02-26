@@ -1,24 +1,28 @@
 package org.taskservice.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.taskservice.dto.TaskDto;
+import org.taskservice.service.NotificationService;
 
 import java.util.List;
 
 @Slf4j
 @Component
 public class KafkaTaskConsumer {
-    private ConsumerFactory<String, TaskDto> consumerFactory;
+    @Value("#{'${mail.to}'.split(',')}")
+    private List<String> to;
 
-    public KafkaTaskConsumer(ConsumerFactory<String, TaskDto> consumerFactory) {
-        this.consumerFactory = consumerFactory;
+    private NotificationService notificationService;
+
+    public KafkaTaskConsumer(NotificationService notificationService) {
+        this.notificationService = notificationService;
     }
 
     @KafkaListener(id = "${kafka.consumer.group-id}",
@@ -30,7 +34,7 @@ public class KafkaTaskConsumer {
                          @Header(KafkaHeaders.RECEIVED_KEY) String key) {
         log.info("Task consumer: started receiving messages");
         try {
-            //TODO: обработка сообщений
+            notificationService.sendEmail(to, "Task notification", messageList);
         } finally {
             ack.acknowledge();
         }
