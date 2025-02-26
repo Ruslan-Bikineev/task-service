@@ -28,11 +28,11 @@ kafka:
     max-poll-records: 10
     max-poll-intervals: 3000
 mail:
-  host: smtp.gmail.com
-  port: 465
+  host: ${MAIL_HOST}
+  port: ${MAIL_PORT}
   username: ${MAIL_USERNAME}
   password: ${MAIL_PASSWORD}
-  protocol: smtp
+  protocol: ${MAIL_PROTOCOL}
   to: ${MAIL_TO}
 logging:
   config: classpath:logback-spring.xml
@@ -69,11 +69,11 @@ kafka:
     max-poll-records: 10
     max-poll-intervals: 3000
 mail:
-  host: smtp.gmail.com
-  port: 465
+  host: ${MAIL_HOST}
+  port: ${MAIL_PORT}
   username: ${MAIL_USERNAME}
   password: ${MAIL_PASSWORD}
-  protocol: smtp
+  protocol: ${MAIL_PROTOCOL}
   to: ${MAIL_TO}
 logging:
   config: classpath:logback-spring.xml
