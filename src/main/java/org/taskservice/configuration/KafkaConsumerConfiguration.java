@@ -24,7 +24,6 @@ import java.util.Map;
 @Slf4j
 @Configuration
 public class KafkaConsumerConfiguration {
-
     @Value("${kafka.bootstrap-servers}")
     private String servers;
 
