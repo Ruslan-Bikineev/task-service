@@ -16,23 +16,23 @@ services:
     volumes:
       - postgres-db-data:/var/lib/postgresql/data
 
-    backend:
-      build: ./
-      container_name: backend
-      hostname: backend
-      restart: on-failure
-      env_file:
-        - .env
-      ports:
-        - "8080:8080"
-      environment:
-        DB_HOST: db
-        SERVER_PORT: 8080
-        LOG_LEVEL: info
-        SPRING_PROFILES_ACTIVE: test
-      depends_on:
-        db:
-          condition: service_healthy
+  backend:
+    build: ./
+    container_name: backend
+    hostname: backend
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db
+      SERVER_PORT: 8080
+      LOG_LEVEL: info
+      SPRING_PROFILES_ACTIVE: test
+    depends_on:
+      db:
+        condition: service_healthy
 
   zookeeper1:
     image: confluentinc/cp-zookeeper:7.9.0

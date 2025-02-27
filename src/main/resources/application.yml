@@ -57,7 +57,7 @@ spring:
     init:
       mode: always
 kafka:
-  bootstrap-servers: localhost:9092
+  bootstrap-servers: ${KAFKA_HOST}:${KAFKA_PORT}
   topic:
     task-name: task_topic
   producer:
