@@ -33,6 +33,6 @@ public class TaskDto {
     private Long userId;
 
     public String getDefaultStatusUpdateMessage() {
-        return "Task with id: " + id + " has been updated status to: " + status + "\n";
+        return "Task with id: " + id + " has been updated status to: " + status;
     }
 }

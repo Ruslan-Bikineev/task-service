@@ -25,7 +25,7 @@ public class NotificationService {
             message.setSubject(subject);
             String emailText = taskList.stream()
                     .map(TaskDto::getDefaultStatusUpdateMessage)
-                    .collect(Collectors.joining());
+                    .collect(Collectors.joining("\n"));
             message.setText(emailText);
             javaMailSender.send(message);
         } catch (Exception e) {
