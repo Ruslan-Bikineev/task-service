@@ -51,8 +51,8 @@ public class TaskController {
     @PutMapping("/{id}")
     public TaskDto put(@PathVariable("id") Long id,
                        @Valid @RequestBody TaskDto taskDto) {
-        taskDto.setId(id);
         Task task = taskMapper.toEntity(taskDto);
+        task.setId(id);
         task = taskService.put(task);
         return taskMapper.toDto(task);
     }
