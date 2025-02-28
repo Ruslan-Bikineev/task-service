@@ -22,8 +22,8 @@ public class KafkaTaskConsumer {
 
     private final NotificationService notificationService;
 
-    @KafkaListener(id = "${kafka.consumer.group-id}",
-            topics = "${kafka.topic.task-name}",
+    @KafkaListener(id = "${kafka.task.consumer.group-id}",
+            topics = "${kafka.task.topic.name}",
             containerFactory = "kafkaTaskListenerContainerFactory")
     public void listener(@Payload List<TaskDto> messageList,
                          Acknowledgment ack,

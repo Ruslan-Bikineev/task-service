@@ -18,10 +18,10 @@ import java.util.Map;
 
 @Configuration
 public class KafkaProducerConfiguration {
-    @Value("${kafka.bootstrap-servers}")
+    @Value("${kafka.task.bootstrap-server}")
     private String servers;
 
-    @Value("${kafka.topic.task-name}")
+    @Value("${kafka.task.topic.name}")
     private String topic;
 
     @Bean
@@ -41,7 +41,7 @@ public class KafkaProducerConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(value = "kafka.producer.enable",
+    @ConditionalOnProperty(value = "kafka.task.producer.enable",
             havingValue = "true",
             matchIfMissing = true)
     public KafkaTaskProducer producerTask(KafkaTemplate kafkaTaskTemplate) {

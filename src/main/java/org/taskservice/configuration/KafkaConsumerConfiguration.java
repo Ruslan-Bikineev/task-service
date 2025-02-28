@@ -1,5 +1,6 @@
 package org.taskservice.configuration;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -15,6 +16,7 @@ import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.util.backoff.FixedBackOff;
+import org.taskservice.configuration.properties.KafkaTaskConsumerProperties;
 import org.taskservice.dto.TaskDto;
 import org.taskservice.kafka.MessageDeserializer;
 
@@ -23,39 +25,27 @@ import java.util.Map;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class KafkaConsumerConfiguration {
     @Value("${kafka.bootstrap-servers}")
     private String servers;
 
-    @Value("${kafka.consumer.group-id}")
-    private String groupId;
-
-    @Value("${kafka.consumer.session-timeout}")
-    private String sessionTimeout;
-
-    @Value("${kafka.consumer.max-partition-fetch-bytes}")
-    private String maxPartitionFetchBytes;
-
-    @Value("${kafka.consumer.max-poll-records}")
-    private String maxPollRecords;
-
-    @Value("${kafka.consumer.max-poll-intervals}")
-    private String maxPollIntervalsMs;
+    private final KafkaTaskConsumerProperties kafkaTaskConsumerProperties;
 
     @Bean
     public ConsumerFactory<String, TaskDto> consumerTaskListenerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaTaskConsumerProperties.groupId());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MessageDeserializer.class);
         props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "org.taskservice.dto.TaskDto");
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         props.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
-        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, sessionTimeout);
-        props.put(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, maxPartitionFetchBytes);
-        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, maxPollRecords);
-        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, maxPollIntervalsMs);
+        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, kafkaTaskConsumerProperties.sessionTimeout());
+        props.put(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, kafkaTaskConsumerProperties.maxPartitionFetchBytes());
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, kafkaTaskConsumerProperties.maxPollRecords());
+        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, kafkaTaskConsumerProperties.maxPollIntervals());
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, MessageDeserializer.class);
