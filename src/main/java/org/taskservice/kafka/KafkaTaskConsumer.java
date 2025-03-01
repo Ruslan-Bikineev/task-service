@@ -19,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KafkaTaskConsumer {
     private final MailProperties mailProperties;
-
     private final NotificationService notificationService;
 
     @KafkaListener(id = "${kafka.task.consumer.group-id}",
