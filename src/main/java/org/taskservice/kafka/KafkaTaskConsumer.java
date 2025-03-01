@@ -31,7 +31,8 @@ public class KafkaTaskConsumer {
                          @Header(KafkaHeaders.RECEIVED_KEY) String key) {
         log.info("Task consumer: started receiving messages");
         try {
-            notificationService.sendEmail(mailProperties.to(), "Task notification", messageList);
+            notificationService.sendEmail("Task notification",
+                    messageList, mailProperties.to().split(" "));
         } finally {
             ack.acknowledge();
         }

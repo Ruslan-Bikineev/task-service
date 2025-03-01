@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 public class NotificationService {
     private final JavaMailSender javaMailSender;
 
-    public void sendEmail(List<String> to, String subject, List<TaskDto> taskList) {
+    public void sendEmail(String subject, List<TaskDto> taskList, String... to) {
         log.info("Sending email to {}", to);
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom("taskservice@example.com");
-            message.setTo(to.toArray(new String[0]));
+            message.setTo(to);
             message.setSubject(subject);
             String emailText = taskList.stream()
                     .map(TaskDto::getDefaultStatusUpdateMessage)

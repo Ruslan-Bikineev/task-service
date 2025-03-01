@@ -27,7 +27,7 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 public class KafkaConsumerConfiguration {
-    @Value("${kafka.bootstrap-servers}")
+    @Value("${kafka.task.bootstrap-server}")
     private String servers;
 
     private final KafkaTaskConsumerProperties kafkaTaskConsumerProperties;
