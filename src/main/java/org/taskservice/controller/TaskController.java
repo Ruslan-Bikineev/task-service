@@ -1,6 +1,7 @@
 package org.taskservice.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +23,10 @@ import java.util.List;
 @ControllerLogging
 @RestController
 @RequestMapping("/tasks")
+@RequiredArgsConstructor
 public class TaskController {
-    private TaskMapper taskMapper;
-    private TaskService taskService;
-
-    public TaskController(TaskMapper taskMapper,
-                          TaskService taskService) {
-        this.taskMapper = taskMapper;
-        this.taskService = taskService;
-    }
+    private final TaskMapper taskMapper;
+    private final TaskService taskService;
 
     @GetMapping
     public List<Task> getAll() {
@@ -55,8 +51,8 @@ public class TaskController {
     @PutMapping("/{id}")
     public TaskDto put(@PathVariable("id") Long id,
                        @Valid @RequestBody TaskDto taskDto) {
-        taskDto.setId(id);
         Task task = taskMapper.toEntity(taskDto);
+        task.setId(id);
         task = taskService.put(task);
         return taskMapper.toDto(task);
     }

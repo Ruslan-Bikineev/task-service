@@ -22,6 +22,8 @@ public class Task {
 
     private String description;
 
+    private String status;
+
     @Column(name = "user_id")
     private Long userId;
 }

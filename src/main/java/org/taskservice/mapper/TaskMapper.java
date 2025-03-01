@@ -1,16 +1,22 @@
 package org.taskservice.mapper;
 
+import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 import org.taskservice.dto.TaskDto;
 import org.taskservice.entity.Task;
 
 @Component
+@RequiredArgsConstructor
 public class TaskMapper {
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    public TaskMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+    @PostConstruct
+    public void setupMapper() {
+        TypeMap<TaskDto, Task> propertyMapper = modelMapper.createTypeMap(TaskDto.class, Task.class);
+        propertyMapper.addMappings(mapper -> mapper.skip(Task::setId));
     }
 
     public Task toEntity(TaskDto taskDto) {
