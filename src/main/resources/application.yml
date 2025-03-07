@@ -15,6 +15,26 @@ spring:
   sql:
     init:
       mode: always
+kafka:
+  task:
+    bootstrap-server: localhost:9092
+    topic:
+      name: task_topic
+    producer:
+      enable: true
+    consumer:
+      group-id: task_group
+      session-timeout: 10000
+      max-partition-fetch-bytes: 1048576
+      max-poll-records: 10
+      max-poll-intervals: 3000
+mail:
+  host: ${MAIL_HOST}
+  port: ${MAIL_PORT}
+  username: ${MAIL_USERNAME}
+  password: ${MAIL_PASSWORD}
+  protocol: ${MAIL_PROTOCOL}
+  to: ${MAIL_TO}
 logging:
   config: classpath:logback-spring.xml
   level:
@@ -37,6 +57,26 @@ spring:
   sql:
     init:
       mode: always
+kafka:
+  task:
+    bootstrap-server: ${KAFKA_HOST}:${KAFKA_PORT}
+    topic:
+      name: task_topic
+    producer:
+      enable: true
+    consumer:
+      group-id: task_group
+      session-timeout: 10000
+      max-partition-fetch-bytes: 1048576
+      max-poll-records: 10
+      max-poll-intervals: 3000
+mail:
+  host: ${MAIL_HOST}
+  port: ${MAIL_PORT}
+  username: ${MAIL_USERNAME}
+  password: ${MAIL_PASSWORD}
+  protocol: ${MAIL_PROTOCOL}
+  to: ${MAIL_TO}
 logging:
   config: classpath:logback-spring.xml
   level:
