@@ -23,7 +23,7 @@ public class RandomModels {
                 faker.lorem().sentence(),
                 faker.lorem().sentence(),
                 faker.lorem().sentence(),
-                faker.random().nextLong()
+                (long) faker.number().numberBetween(10, 100000)
         );
     }
 
@@ -33,7 +33,7 @@ public class RandomModels {
                 faker.lorem().sentence(),
                 faker.lorem().sentence(),
                 faker.lorem().sentence(),
-                faker.random().nextLong()
+                (long) faker.number().numberBetween(10, 100000)
         );
     }
 }

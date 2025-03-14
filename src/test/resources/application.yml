@@ -1,0 +1,33 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:16.1-alpine:///:test_db
+  jpa:
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+kafka:
+  task:
+    bootstrap-server: localhost:9092
+    topic:
+      name: task_topic
+    producer:
+      enable: true
+    consumer:
+      group-id: task_group
+      session-timeout: 10000
+      max-partition-fetch-bytes: 1048576
+      max-poll-records: 10
+      max-poll-intervals: 3000
+mail:
+  host: gmail.smtp.com
+  port: 465
+  username: test@gmail.com
+  password: password
+  protocol: smtp
+  to: test@mail.ru

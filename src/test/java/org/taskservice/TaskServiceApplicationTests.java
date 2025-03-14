@@ -1,13 +1,15 @@
 package org.taskservice;
 
-import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.kafka.test.context.EmbeddedKafka;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
-class TaskServiceApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
-
+@DirtiesContext
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
+public class TaskServiceApplicationTests {
 }
