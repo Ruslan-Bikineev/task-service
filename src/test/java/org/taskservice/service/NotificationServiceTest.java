@@ -61,7 +61,8 @@ class NotificationServiceTest {
                 () -> assertArrayEquals(recipients, sentMessage.getTo()),
                 () -> assertEquals(subject, sentMessage.getSubject()),
                 () -> IntStream.range(0, taskDtoList.size()).forEach(i ->
-                        assertTrue(sentMessage.getText().contains(taskDtoList.get(i).getDefaultStatusUpdateMessage())))
+                        assertTrue(sentMessage.getText()
+                                .contains(taskDtoList.get(i).getDefaultStatusUpdateMessage())))
         );
     }
 }
