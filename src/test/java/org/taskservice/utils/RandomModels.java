@@ -11,7 +11,7 @@ import java.util.Locale;
 @Getter
 @Component
 public class RandomModels {
-    private Faker faker;
+    private final Faker faker;
 
     public RandomModels() {
         this.faker = new Faker(new Locale("ru"));
