@@ -26,7 +26,6 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class NotificationServiceTest {
     private RandomModels randomModels;
-    private List<TaskDto> taskDtoList;
     private NotificationService notificationService;
 
     @Mock
@@ -42,14 +41,14 @@ class NotificationServiceTest {
     @BeforeEach
     public void setUpBeforeEach() {
         notificationService = new NotificationService(javaMailSender);
-        taskDtoList = IntStream.range(0, 5)
-                .mapToObj(i -> randomModels.getRandomTaskDto())
-                .toList();
     }
 
     @Test
     @DisplayName("Тестирование отправки email с обновлением задач")
     void testSendEmail() {
+        List<TaskDto> taskDtoList = IntStream.range(0, 5)
+                .mapToObj(i -> randomModels.getRandomTaskDto())
+                .toList();
         String subject = randomModels.getFaker().lorem().sentence();
         String[] recipients = {randomModels.getFaker().internet().emailAddress(),
                 randomModels.getFaker().internet().emailAddress()};
