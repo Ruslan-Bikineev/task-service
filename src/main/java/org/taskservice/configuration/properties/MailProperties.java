@@ -14,7 +14,7 @@ public record MailProperties(@NotBlank String host,
                              @NotBlank String password,
                              @NotBlank String protocol,
                              @NotBlank
-                             @Pattern(regexp = "^([A-Za-z0-9-_.]+@[a-z0-9-]+\\.[a-z]{2,6})(\\s[A-Za-z0-9-_.]+@[a-z0-9-]+\\.[a-z]{2,6})+$",
+                             @Pattern(regexp = "^([A-Za-z0-9-_.]+@[a-z0-9-]+\\.[a-z]{2,6})(\\s[A-Za-z0-9-_.]+@[a-z0-9-]+\\.[a-z]{2,6})*$",
                                      message = "Invalid email address or must be a space separated list of email addresses")
                              String to) {
 }
